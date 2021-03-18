@@ -1,0 +1,30 @@
+{% extends "./layouts/default-layout.njk" %}
+
+{% block content %}
+  <h3>{{ vote.title }}</h3>
+
+  <ul>
+    {% for option in vote.options %}
+      <li>
+        <a onclick="onOptionClick('{{ option.title }}');">
+          <h5>{{ option.title }}</h5>
+          <p>{{ option.voters.length }}人投票</p>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+
+{% block body_bottom_scripts %}
+  <script>
+    const vote = {{ vote | dump | safe }};
+    async function onOptionClick(title) {
+      const option = vote.options.find(option => option.title === title);
+      console.log(option);
+      const response = await fetch(`vote/${ vote.id }/option/${ option.title }`, { method: 'put' });
+      const data = await response.json();
+      window.location.reload();
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "./layouts/default-layout.njk" %}
+
+{% block content %}
+
+  <ul>
+    {% for vote in votes %}
+      <li>
+        <a href="./vote/{{ vote.id }}">{{ vote.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

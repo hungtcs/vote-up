@@ -1,0 +1,26 @@
+{% extends "./base-layout.njk" %}
+
+{% block head_bottom %}
+  <meta name="theme-color" content="#3F51B5" />
+  {% block head_styles %}{% endblock %}
+{% endblock %}
+
+{% block body_top %}
+  <header id="header">
+    <section class="header__left">
+      <h2>投票</h2>
+    </section>
+    <section class="header__center"></section>
+    <section class="header__right"></section>
+  </header>
+{% endblock %}
+
+{% block body_content %}
+  <main id="content">
+    {% block content %}{% endblock %}
+  </main>
+{% endblock %}
+
+{% block body_bottom %}
+  {% block body_bottom_scripts %}{% endblock %}
+{% endblock %}

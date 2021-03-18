@@ -1,0 +1,27 @@
+{
+  "collection": "@nestjs/schematics",
+  "monorepo": true,
+  "projects": {
+    "vote-up": {
+      "type": "application",
+      "root": ".",
+      "entryFile": "main",
+      "sourceRoot": "src",
+      "compilerOptions": {
+        "assets": [
+          {
+            "include": "assets/**/*",
+            "watchAssets": true
+          },
+          {
+            "include": "views/**/*",
+            "watchAssets": true
+          }
+        ],
+        "webpack": true,
+        "deleteOutDir": true,
+        "tsConfigPath": "tsconfig.app.json"
+      }
+    }
+  }
+}
