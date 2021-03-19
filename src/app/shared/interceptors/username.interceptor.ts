@@ -1,6 +1,7 @@
 import { ObjectID } from 'mongodb';
 import { Request, Response } from 'express';
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import moment from 'moment';
 
 @Injectable()
 export class UsernameInterceptor implements NestInterceptor {
@@ -14,7 +15,7 @@ export class UsernameInterceptor implements NestInterceptor {
     if(!username) {
       const username = new ObjectID().toHexString();
       request.cookies.username = username;
-      response.cookie('username', username);
+      response.cookie('username', username, { expires: moment().add(1, 'year').toDate() });
     }
 
     return next.handle();

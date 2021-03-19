@@ -1,6 +1,11 @@
 
 #content {
   padding: 16px;
+  > h3 {
+    margin: 0px 0px 12px 0px;
+    font-size: 14px;
+    font-weight: normal;
+  }
 }
 
 .options-list {

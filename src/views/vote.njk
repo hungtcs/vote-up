@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+  <h3>{{ '您已投票' if disabled else '请投票' }}</h3>
   <ul class="options-list {{ 'disabled' if disabled }}">
     {% for option in vote.options %}
       <li style="--percentage: {{ option.voters.length / votersCount * 100 }}%">
@@ -26,8 +27,8 @@
     {% endfor %}
   </ul>
   <div class="desc">
-    <p>1. 没人最少投一票，最多头两票。</p>
-    <p>2. 请不要清楚浏览器Cookie，会导致投票记录重复。</p>
+    <p>1. 每人最少投一票，最多投两票。</p>
+    <p>2. 请不要清除浏览器Cookie，会导致投票记录重复。</p>
   </div>
 {% endblock %}
 
