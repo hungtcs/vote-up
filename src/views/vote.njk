@@ -1,19 +1,34 @@
 {% extends "./layouts/default-layout.njk" %}
 
-{% block content %}
-  <h3>{{ vote.title }}</h3>
+{% block head_styles %}
+  <link rel="stylesheet" href="styles/pages/vote.css" />
+{% endblock %}
 
-  <ul>
+{% block header_left %}
+  <a href="/">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </a>
+{% endblock %}
+
+{% block header_center %}
+  <h2>{{ vote.title }}</h2>
+{% endblock %}
+
+{% block content %}
+  <ul class="options-list {{ 'disabled' if disabled }}">
     {% for option in vote.options %}
-      <li>
-        <a onclick="onOptionClick('{{ option.title }}');">
-          <h5>{{ option.title }}</h5>
+      <li style="--percentage: {{ option.voters.length / votersCount * 100 }}%">
+        <a {% if not disabled %}onclick="onOptionClick('{{ option.title }}')"{% endif %}>
+          <h4>{{ option.title }}</h4>
           <p>{{ option.voters.length }}人投票</p>
         </a>
       </li>
     {% endfor %}
   </ul>
-
+  <div class="desc">
+    <p>1. 没人最少投一票，最多头两票。</p>
+    <p>2. 请不要清楚浏览器Cookie，会导致投票记录重复。</p>
+  </div>
 {% endblock %}
 
 {% block body_bottom_scripts %}
@@ -21,7 +36,6 @@
     const vote = {{ vote | dump | safe }};
     async function onOptionClick(title) {
       const option = vote.options.find(option => option.title === title);
-      console.log(option);
       const response = await fetch(`vote/${ vote.id }/option/${ option.title }`, { method: 'put' });
       const data = await response.json();
       window.location.reload();

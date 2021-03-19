@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Param, Put, Redirect, Render, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, HttpCode, HttpStatus, Param, Put, Redirect, Render, UseInterceptors } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Model } from 'mongoose';
@@ -18,31 +18,44 @@ export class VoteUpController {
 
   }
 
-  @Put('vote')
-  @ApiBody({ type: Vote, required: true })
-  @ApiResponse({ type: Vote })
+  @Get()
+  @Render('index.njk')
+  public async voteList() {
+    const votes = await this.VoteModel.find({}).exec();
+
+    return {
+      votes: votes.map(vote => classToPlain(plainToClass(Vote, vote.toObject()))),
+    };
+  }
+
+  @Get('create')
+  @Render('create.njk')
+  public async renderCreateVote() {}
+
+  @Put('create')
+  @ApiBody({ type: Vote })
+  @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(MongoDocumentInterceptor({ type: Vote }))
   public async createVote(
       @Body() vote: Vote) {
     return await new this.VoteModel(vote).save();
   }
 
-  @Get()
-  @Render('index.njk')
-  public async voteList() {
-    const votes = await this.VoteModel.find({}).exec();
-    console.log(votes);
-
-    return { votes };
-  }
-
   @Get('vote/:id')
   @Render('vote.njk')
   public async voteDetail(
-      @Param('id') id: string) {
-    const vote = await this.VoteModel.findById(new ObjectID(id));
+      @Param('id') id: string,
+      @Cookies('username') username: string) {
+    const vote = plainToClass(Vote, (await this.VoteModel.findById(new ObjectID(id)))!.toObject());
+
+    const disabled = vote.options.reduce((count, option) => option.voters.includes(username) ? count + 1 : count, 0) > 1;
+
+    const votersCount = vote.options.reduce((count, option) => option.voters.length + count, 0);
+
     return {
-      vote: classToPlain(plainToClass(Vote, vote?.toObject())),
+      vote: { ...classToPlain(vote) },
+      disabled,
+      votersCount,
     };
   }
 

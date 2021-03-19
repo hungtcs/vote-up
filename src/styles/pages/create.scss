@@ -1,0 +1,82 @@
+@import "../variables";
+
+input[type="text"] {
+  height: 32px;
+  border: 1px solid #CCC;
+  outline: none;
+  background-color: #FFF;
+  padding: 8px 8px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  outline: none;
+  border: none;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+  &.primary {
+    color: #FFFFFF;
+    background-color: $primary-color;
+    &:active {
+      background-color: darken($color: $primary-color, $amount: 10%);
+    }
+  }
+}
+
+#form {
+  display: block;
+  padding: 16px;
+  > section {
+    display: flex;
+    flex-flow: row nowrap;
+    > label {
+      flex: 0 0 64px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    > div {
+      flex: 1 1 auto;
+      display: flex;
+      flex-flow: column nowrap;
+      > input {
+        flex: 0 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      > section {
+        display: flex;
+        > input {
+          flex: 1 1 100%
+        }
+        > a {
+          color: #000;
+          display: flex;
+          margin-left: 8px;
+          align-items: center;
+          text-decoration: none;
+        }
+        & + section {
+          margin-top: 12px;
+        }
+        & + button {
+          margin-top: 12px;
+        }
+      }
+    }
+
+    > button[type="submit"] {
+      width: 100%;
+      display: block;
+    }
+    & + section {
+      margin-top: 12px;
+    }
+  }
+}

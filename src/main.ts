@@ -28,6 +28,7 @@ async function bootstrap() {
   app.setViewEngine('njk');
   app.setBaseViewsDir(baseViewsDir);
   app.useStaticAssets(path.join(__dirname, 'assets'), { prefix: '/assets' });
+  app.useStaticAssets(path.join(__dirname, 'styles'), { prefix: '/styles' });
 
   SwaggerModule.setup(
     'swagger',

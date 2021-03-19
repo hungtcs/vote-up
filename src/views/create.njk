@@ -1,0 +1,39 @@
+{% extends "./layouts/default-layout.njk" %}
+
+{% block head_styles %}
+  <link rel="stylesheet" href="styles/pages/create.css" />
+{% endblock %}
+
+{% block header_left %}
+  <a href="/">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </a>
+{% endblock %}
+
+{% block header_center %}
+  <h2>创建投票</h2>
+{% endblock %}
+
+{% block content %}
+  <form id="form" autocomplete="off">
+    <section>
+      <label>名称</label>
+      <div>
+        <input name="title" type="text" required />
+      </div>
+    </section>
+    <section field="options">
+      <label>选项</label>
+      <div>
+        <button type="button" action="add-option">添加选项</button>
+      </div>
+    </section>
+    <section>
+      <button type="submit" class="primary">完成</button>
+    </section>
+  </form>
+{% endblock %}
+
+{% block body_bottom_scripts %}
+  <script src="assets/scripts/pages/create.js"></script>
+{% endblock %}

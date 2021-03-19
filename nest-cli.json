@@ -9,14 +9,7 @@
       "sourceRoot": "src",
       "compilerOptions": {
         "assets": [
-          {
-            "include": "assets/**/*",
-            "watchAssets": true
-          },
-          {
-            "include": "views/**/*",
-            "watchAssets": true
-          }
+
         ],
         "webpack": true,
         "deleteOutDir": true,

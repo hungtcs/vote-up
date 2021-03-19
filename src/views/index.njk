@@ -1,13 +1,28 @@
 {% extends "./layouts/default-layout.njk" %}
 
+{% block head_styles %}
+  <link rel="stylesheet" href="styles/pages/index.css" />
+{% endblock %}
+
+{% block header_right %}
+  <a href="create">
+    <mat-icon>add</mat-icon>
+  </a>
+{% endblock %}
+
 {% block content %}
-
-  <ul>
-    {% for vote in votes %}
-      <li>
-        <a href="./vote/{{ vote.id }}">{{ vote.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
+  {% if votes.length > 0 %}
+    <ul class="votes-list">
+      {% for vote in votes %}
+        <li>
+          <a href="./vote/{{ vote.id }}">
+            <h4>{{ vote.title }}</h4>
+            <p>{{ vote.options.length }}个选项</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>EMPTY</p>
+  {% endif %}
 {% endblock %}

@@ -2,16 +2,23 @@
 
 {% block head_bottom %}
   <meta name="theme-color" content="#3F51B5" />
+  <link rel="stylesheet" href="styles/layouts/default-layout.css" />
   {% block head_styles %}{% endblock %}
 {% endblock %}
 
 {% block body_top %}
   <header id="header">
     <section class="header__left">
-      <h2>投票</h2>
+      {% block header_left %}{% endblock %}
     </section>
-    <section class="header__center"></section>
-    <section class="header__right"></section>
+    <section class="header__center">
+      {% block header_center %}
+        <h2>投票</h2>
+      {% endblock %}
+    </section>
+    <section class="header__right">
+      {% block header_right %}{% endblock %}
+    </section>
   </header>
 {% endblock %}
 
